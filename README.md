@@ -11,7 +11,7 @@ This README explains how to run `script/trim_includes.py`, what it does, and how
 - Optionally rewrites the file so only the needed includes remain.
 - Safety pass: after trimming, it recompiles; if the reduced set fails, it re-adds removed headers (in original order) until compilation succeeds.
 
-## Quick start (in this repo)
+## Quick start
 - Check only: `python3 script/trim_includes.py`
 - Check verbose: `python3 script/trim_includes.py --verbose`
 - Apply fixes: `python3 script/trim_includes.py --fix`
