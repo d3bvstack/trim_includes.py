@@ -2,7 +2,7 @@
 
 # trim_includes.py
 
-This README explains how to run `scripts/trim_includes.py`, what it does, and how to prepare any C project so the script can accurately detect and trim unused `#include` directives.
+This README explains how to run `script/trim_includes.py`, what it does, and how to prepare any C project so the script can accurately detect and trim unused `#include` directives.
 
 ## What the script does
 - Scans C files (default: everything under `src/`).
@@ -12,10 +12,10 @@ This README explains how to run `scripts/trim_includes.py`, what it does, and ho
 - Safety pass: after trimming, it recompiles; if the reduced set fails, it re-adds removed headers (in original order) until compilation succeeds.
 
 ## Quick start (in this repo)
-- Check only: `python3 scripts/trim_includes.py`
-- Check verbose: `python3 scripts/trim_includes.py --verbose`
-- Apply fixes: `python3 scripts/trim_includes.py --fix`
-- Single file: `python3 scripts/trim_includes.py --file src/assemble/config_color.c --fix`
+- Check only: `python3 script/trim_includes.py`
+- Check verbose: `python3 script/trim_includes.py --verbose`
+- Apply fixes: `python3 script/trim_includes.py --fix`
+- Single file: `python3 script/trim_includes.py --file src/assemble/config_color.c --fix`
 
 Defaults are derived from the top-level `Makefile` (`INCLUDES`, `CFLAGS`).
 
@@ -66,14 +66,14 @@ Exit code is non-zero if any file fails the baseline compile or if a fix attempt
 ## Example for another project
 Assume a project with sources under `source/`, headers in `include/`, and a Makefile with `INCLUDES`/`CFLAGS`:
 ```
-python3 scripts/trim_includes.py \
+python3 script/trim_includes.py \
   --src-dir source \
   --makefile Makefile \
   --fix
 ```
 If your project needs extra flags for a specific platform:
 ```
-python3 scripts/trim_includes.py \
+python3 script/trim_includes.py \
   --src-dir source \
   --makefile Makefile \
   --cflag -DPLATFORM_LINUX \
