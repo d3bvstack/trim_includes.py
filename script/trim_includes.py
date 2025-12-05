@@ -55,10 +55,28 @@ def parse_make_vars(makefile: pathlib.Path) -> dict[str, str]:
     return {k: expand(v) for k, v in vars.items()}
 
 
+def _normalize_includes(include_tokens: List[str], base_dir: pathlib.Path) -> List[str]:
+    """Turn raw include tokens into -I-prefixed, absolute include flags."""
+    normalized: List[str] = []
+    for tok in include_tokens:
+        if not tok:
+            continue
+        if tok.startswith("-I"):
+            path_part = tok[2:]
+        else:
+            path_part = tok
+        path = pathlib.Path(path_part)
+        if not path.is_absolute():
+            path = (base_dir / path_part).resolve()
+        normalized.append(f"-I{path}")
+    return normalized
+
+
 def makefile_flags(makefile: pathlib.Path) -> tuple[List[str], List[str]]:
     vars = parse_make_vars(makefile)
     include_tokens = shlex.split(vars.get("INCLUDES", ""))
-    includes = [tok for tok in include_tokens if tok.startswith("-I")]
+    base_dir = makefile.parent.resolve()
+    includes = _normalize_includes(include_tokens, base_dir)
     cflags = shlex.split(vars.get("CFLAGS", ""))
     return includes, cflags
 
