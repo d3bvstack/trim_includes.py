@@ -1,3 +1,5 @@
+<img alt="cover-trim_include" src="https://github.com/user-attachments/assets/cad3d3cd-0223-4d9a-8f55-cc26e0c6f777" />
+
 # trim_includes.py
 
 This README explains how to run `scripts/trim_includes.py`, what it does, and how to prepare any C project so the script can accurately detect and trim unused `#include` directives.
